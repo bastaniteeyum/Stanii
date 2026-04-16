@@ -279,12 +279,10 @@
     const email = document.getElementById('femail').value.trim();
     const phone = document.getElementById('fphone').value.trim();
     const btn   = document.getElementById('submit-btn');
-
     document.getElementById('email-err').classList.remove('show');
     document.getElementById('phone-err').classList.remove('show');
     document.getElementById('femail').classList.remove('error');
     document.getElementById('fphone').classList.remove('error');
-
     let valid = true;
     if (!isValidEmail(email)) {
       document.getElementById('email-err').classList.add('show');
@@ -297,10 +295,8 @@
       valid = false;
     }
     if (!valid) return;
-
     btn.disabled = true;
     btn.classList.add('loading');
-
     const data = {
       name: document.getElementById('fname').value.trim(),
       email, phone,
@@ -308,7 +304,6 @@
       source: 'QR Poster',
       timestamp: new Date().toISOString()
     };
-
     fetch('https://formspree.io/f/xdapwvnj', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -331,13 +326,10 @@
     const size  = document.querySelector('input[name="rack-size"]:checked');
     const btn   = document.getElementById('rack-submit-btn');
     const err   = document.getElementById('rack-err');
-
     err.style.display = 'none';
     if (!name || !phone || !email) { err.style.display = 'block'; return; }
-
     btn.disabled = true;
     btn.classList.add('loading');
-
     const data = {
       name, phone, email,
       instagram:  ig,
@@ -347,8 +339,7 @@
       source:     'QR Landing Page',
       timestamp:  new Date().toISOString()
     };
-
-    fetch('https://formspree.io/f/xdapwvnj', {
+    fetch('https://formspree.io/f/xkokjbkq', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
