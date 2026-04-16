@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>STANII — Rent a Rack</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #080808; --off: #F4F1EC; --dim: #3a3a3a; --mid: #666; --border: #1e1e1e; }
+  html, body { background: var(--black); color: var(--off); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  .zone-label { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; display: block; margin-bottom: 24px; }
+  .dash-row { display: flex; gap: 16px; margin-bottom: 16px; }
+  .dash-row:last-child { margin-bottom: 0; }
+  .dash { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--dim); flex-shrink: 0; line-height: 1.4; margin-top: -1px; }
+  .dash-text { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.55; letter-spacing: 0.01em; }
+  .dash-text strong { color: var(--off); font-weight: 500; }
+  .section-pad { padding: 32px; border-bottom: 1px solid var(--border); }
+  .rack-hero { padding: 56px 32px 44px; text-align: center; border-bottom: 1px solid var(--border); }
+  .rack-tag { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; display: block; margin-bottom: 32px; }
+  .rack-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 13vw, 68px); font-weight: 300; color: var(--off); line-height: 0.9; letter-spacing: -0.01em; }
+  .rack-sub { font-size: 13px; font-weight: 300; font-style: italic; color: var(--mid); display: block; margin-top: 20px; font-family: 'Cormorant Garamond', serif; line-height: 1.6; max-width: 280px; margin-left: auto; margin-right: auto; }
+  .stat-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .stat-cell { padding: 22px 12px; text-align: center; border-right: 1px solid var(--border); }
+  .stat-cell:last-child { border-right: none; }
+  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--off); line-height: 1; display: block; margin-bottom: 6px; }
+  .stat-label { font-size: 9px; font-weight: 600; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; display: block; line-height: 1.4; }
+  .rack-form { padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .rack-form textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #3a3a3a; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; padding: 12px 0; outline: none; letter-spacing: 0.02em; transition: border-color 0.2s; resize: none; line-height: 1.6; }
+  .rack-form textarea::placeholder { color: #555; }
+  .rack-form textarea:focus { border-bottom-color: #888; }
+  .form-label { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: #666; text-transform: uppercase; display: block; margin-bottom: 8px; }
+  .field-group { display: flex; flex-direction: column; gap: 10px; }
+  .field-wrap input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #3a3a3a; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; padding: 12px 0; outline: none; letter-spacing: 0.02em; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
+  .field-wrap input::placeholder { color: #555; }
+  .field-wrap input:focus { border-bottom-color: #888; }
+  .rack-options { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .rack-option { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; }
+  .rack-option input[type="radio"] { display: none; }
+  .rack-radio { width: 14px; height: 14px; border: 1px solid #3a3a3a; border-radius: 50%; flex-shrink: 0; position: relative; transition: border-color 0.2s; }
+  .rack-option input[type="radio"]:checked + .rack-radio { border-color: var(--off); }
+  .rack-option input[type="radio"]:checked + .rack-radio::after { content: ''; position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--off); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .rack-option-text { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.4; letter-spacing: 0.01em; }
+  .rack-option-text strong { color: var(--off); font-weight: 500; }
+  .rack-option-text span { display: block; font-size: 10px; color: #444; margin-top: 2px; }
+  .submit-btn { width: 100%; background: var(--off); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 18px; border: none; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
+  .submit-btn:active { opacity: 0.8; }
+  .submit-btn:disabled { background: #222; color: #555; cursor: not-allowed; }
+  .submit-btn .btn-loading { display: none; }
+  .submit-btn.loading .btn-text { display: none; }
+  .submit-btn.loading .btn-loading { display: block; }
+  .privacy-note { font-size: 10px; font-weight: 300; color: #444; text-align: center; line-height: 1.6; letter-spacing: 0.02em; }
+  .error-msg { font-size: 11px; color: #8b2020; display: none; margin-top: -8px; letter-spacing: 0.02em; }
+  .site-footer { padding: 28px 32px 48px; text-align: center; border-top: 1px solid #111; }
+  .footer-logo { font-size: 10px; font-weight: 600; letter-spacing: 0.6em; color: #222; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .footer-handle { font-size: 10px; font-weight: 300; color: #2a2a2a; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+  <div class="rack-hero">
+    <span class="rack-tag">Stanii &nbsp;&middot;&nbsp; Rent a Rack</span>
+    <div class="rack-title">Your closet<br>should pay<br>you back.</div>
+    <span class="rack-sub">You set the prices. We handle the floor.<br>70% of every sale goes directly to you.</span>
+  </div>
+
+  <div class="stat-bar">
+    <div class="stat-cell"><span class="stat-value">70%</span><span class="stat-label">Yours on every sale</span></div>
+    <div class="stat-cell"><span class="stat-value">2wk</span><span class="stat-label">Rental cycles</span></div>
+    <div class="stat-cell"><span class="stat-value">50</span><span class="stat-label">Items per rack</span></div>
+  </div>
+
+  <div class="section-pad">
+    <span class="zone-label">How it works</span>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You drop off</strong> your pieces clean and ready — we take care of hanging them</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You set the prices</strong> — we recommend 1/3 of retail for fastest sell-through</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>We sell it</strong> — STANII handles the floor, the shoppers, and the transactions</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You get paid</strong> — 70% of your sales via Zelle or Venmo every week of your rental cycle</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You collect</strong> anything unsold within 3 days of your rental end date</div></div>
+  </div>
+
+  <div class="section-pad">
+    <span class="zone-label">Pricing</span>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Full rack, 2 weeks</strong> — $120 &nbsp;·&nbsp; up to 50 items</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Half rack, 2 weeks</strong> — $80 &nbsp;·&nbsp; up to 25 items</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Full rack, 1 week</strong> — $80 &nbsp;·&nbsp; up to 50 items</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Premium spot</strong> — $135 &nbsp;·&nbsp; highest traffic position near entrance</div></div>
+  </div>
+
+  <div class="rack-form">
+    <span class="form-label">Apply for your rack</span>
+    <div class="field-group">
+      <div class="field-wrap"><input type="text" id="rname" placeholder="Full name" autocomplete="name"></div>
+      <div class="field-wrap"><input type="tel" id="rphone" placeholder="Phone number" autocomplete="tel" inputmode="tel"></div>
+      <div class="field-wrap"><input type="email" id="remail" placeholder="Email address" autocomplete="email" inputmode="email"></div>
+      <div class="field-wrap"><input type="text" id="rinstagram" placeholder="Instagram handle" autocomplete="off"></div>
+    </div>
+    <div style="margin-top: 8px;">
+      <span class="form-label" style="margin-bottom: 16px;">Rack size</span>
+      <div class="rack-options">
+        <label class="rack-option">
+          <input type="radio" name="rack-size" value="Full rack 2 weeks $120">
+          <div class="rack-radio"></div>
+          <div class="rack-option-text"><strong>Full rack — 2 weeks</strong><span>$120 &nbsp;·&nbsp; up to 50 items</span></div>
+        </label>
+        <label class="rack-option">
+          <input type="radio" name="rack-size" value="Half rack 2 weeks $80">
+          <div class="rack-radio"></div>
+          <div class="rack-option-text"><strong>Half rack — 2 weeks</strong><span>$80 &nbsp;·&nbsp; up to 25 items</span></div>
+        </label>
+        <label class="rack-option">
+          <input type="radio" name="rack-size" value="Full rack 1 week $80">
+          <div class="rack-radio"></div>
+          <div class="rack-option-text"><strong>Full rack — 1 week</strong><span>$80 &nbsp;·&nbsp; up to 50 items</span></div>
+        </label>
+        <label class="rack-option">
+          <input type="radio" name="rack-size" value="Premium spot $135">
+          <div class="rack-radio"></div>
+          <div class="rack-option-text"><strong>Premium spot</strong><span>$135 &nbsp;·&nbsp; highest traffic rack near entrance</span></div>
+        </label>
+      </div>
+    </div>
+    <div class="field-wrap" style="margin-top: 8px;">
+      <textarea id="rstyle" rows="3" placeholder="Describe your style and what you plan to sell (e.g. vintage women's, streetwear, mixed designer)"></textarea>
+    </div>
+    <div class="error-msg" id="rack-err" style="display:none;">Please fill in your name, phone, and email.</div>
+    <button class="submit-btn" id="rack-submit-btn" onclick="handleRackSubmit()">
+      <span class="btn-text">Submit application</span>
+      <span class="btn-loading">One moment</span>
+    </button>
+    <p class="privacy-note">We review all applications within 48 hours and will reach out by text.</p>
+  </div>
+
+  <div class="site-footer">
+    <span class="footer-logo">Stanii</span>
+    <span class="footer-handle">@staniidallas &nbsp;&middot;&nbsp; 1906 Greenville Ave, Dallas TX</span>
+  </div>
+
+<script>
+  function handleRackSubmit() {
+    const name  = document.getElementById('rname').value.trim();
+    const phone = document.getElementById('rphone').value.trim();
+    const email = document.getElementById('remail').value.trim();
+    const ig    = document.getElementById('rinstagram').value.trim();
+    const style = document.getElementById('rstyle').value.trim();
+    const size  = document.querySelector('input[name="rack-size"]:checked');
+    const btn   = document.getElementById('rack-submit-btn');
+    const err   = document.getElementById('rack-err');
+    err.style.display = 'none';
+    if (!name || !phone || !email) { err.style.display = 'block'; return; }
+    btn.disabled = true;
+    btn.classList.add('loading');
+    const data = {
+      name, phone, email,
+      instagram:  ig,
+      rack_size:  size ? size.value : 'Not selected',
+      style_desc: style,
+      type:       'Rack Rental Application',
+      source:     'Direct Rack Page',
+      timestamp:  new Date().toISOString()
+    };
+    fetch('https://formspree.io/f/xkokjbkq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(() => {
+      btn.classList.remove('loading');
+      btn.textContent = 'Application submitted';
+      btn.style.background = '#1a1a1a';
+      btn.style.color = '#666';
+      const conf = document.createElement('p');
+      conf.style.cssText = 'font-size:13px;font-weight:300;color:#666;line-height:1.65;letter-spacing:0.01em;text-align:center;margin-top:8px;font-family:Montserrat,sans-serif;';
+      conf.innerHTML = 'We will be in touch within 48 hours.';
+      btn.parentNode.insertBefore(conf, btn.nextSibling);
+    }).catch(() => {
+      btn.classList.remove('loading');
+      btn.textContent = 'Application submitted';
+    });
+  }
+</script>
+
+</body>
+</html>
