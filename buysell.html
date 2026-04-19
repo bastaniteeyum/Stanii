@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>STANII — Sell Your Clothes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #080808; --off: #F4F1EC; --dim: #888888; --mid: #AAAAAA; --border: #2e2e2e; }
+  html, body { background: var(--black); color: var(--off); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+  @keyframes fadeUp  { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  .divider { width: 32px; height: 1px; background: var(--dim); margin: 0 auto; }
+  .zone-label { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; display: block; margin-bottom: 24px; }
+  .dash-row { display: flex; gap: 16px; margin-bottom: 16px; }
+  .dash-row:last-child { margin-bottom: 0; }
+  .dash { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--dim); flex-shrink: 0; line-height: 1.4; margin-top: -1px; }
+  .dash-text { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.55; letter-spacing: 0.01em; }
+  .dash-text strong { color: var(--off); font-weight: 500; }
+  .section-pad { padding: 32px; border-bottom: 1px solid var(--border); }
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 36px; text-align: center; }
+  .logo { font-size: 11px; font-weight: 600; letter-spacing: 0.55em; color: var(--dim); text-transform: uppercase; margin-bottom: 56px; opacity: 0; animation: fadeIn 0.8s 0.2s ease forwards; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 13vw, 64px); font-weight: 300; color: var(--off); line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.9s 0.4s ease forwards; }
+  .hero-body { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 280px; margin: 0 auto 48px; opacity: 0; animation: fadeUp 0.9s 0.6s ease forwards; letter-spacing: 0.01em; }
+  .hero-cta { display: inline-block; background: transparent; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 16px 36px; border: 1px solid #2e2e2e; cursor: pointer; width: 100%; max-width: 280px; transition: border-color 0.2s, background 0.2s; -webkit-tap-highlight-color: transparent; opacity: 0; animation: fadeIn 0.7s 0.9s ease forwards; }
+  .hero-cta:active { background: #141414; border-color: #444; }
+  #how { display: none; flex-direction: column; }
+  .page-top { padding: 56px 32px 40px; text-align: center; border-bottom: 1px solid var(--border); }
+  .page-top .divider { margin-bottom: 28px; }
+  .page-headline { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 300; color: var(--off); line-height: 1.2; margin: 16px 0 14px; letter-spacing: 0.02em; }
+  .page-body { font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 280px; margin: 0 auto; letter-spacing: 0.02em; }
+  .page-body strong { color: var(--off); font-weight: 500; }
+  .payout-bar { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .payout-cell { padding: 22px 16px; text-align: center; border-right: 1px solid var(--border); }
+  .payout-cell:last-child { border-right: none; }
+  .pc-label { font-size: 8px; font-weight: 600; letter-spacing: 0.4em; color: var(--dim); text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .pc-value { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--off); line-height: 1; display: block; }
+  .pc-sub { font-size: 9px; font-weight: 300; color: var(--mid); display: block; margin-top: 4px; letter-spacing: 0.05em; }
+  .next-btn { display: block; width: 100%; background: var(--off); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 18px; text-align: center; border: none; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+  .next-btn:active { opacity: 0.85; }
+  #form-page { display: none; flex-direction: column; }
+  .confirm-bar { background: var(--off); padding: 10px 24px; text-align: center; }
+  .confirm-bar p { font-size: 9px; font-weight: 600; letter-spacing: 0.4em; color: var(--black); text-transform: uppercase; }
+  .form-zone { padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .form-label { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: #999; text-transform: uppercase; display: block; margin-bottom: 8px; }
+  .field-group { display: flex; flex-direction: column; gap: 12px; }
+  .field-wrap input, .field-wrap select { width: 100%; background: transparent; border: none; border-bottom: 1px solid #3a3a3a; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; padding: 12px 0; outline: none; letter-spacing: 0.02em; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
+  .field-wrap select { color: #AAAAAA; }
+  .field-wrap select option { background: #111; color: var(--off); }
+  .field-wrap input::placeholder { color: #AAAAAA; }
+  .field-wrap input:focus, .field-wrap select:focus { border-bottom-color: #888; }
+  .field-wrap input.error { border-bottom-color: #8b2020; }
+  .optin-wrap { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 4px; }
+  .optin-wrap input[type="checkbox"] { display: none; }
+  .custom-check { width: 16px; height: 16px; border: 1px solid #3a3a3a; flex-shrink: 0; position: relative; cursor: pointer; margin-top: 2px; transition: border-color 0.2s; }
+  .optin-wrap input[type="checkbox"]:checked + .custom-check { border-color: var(--off); }
+  .optin-wrap input[type="checkbox"]:checked + .custom-check::after { content: ''; position: absolute; width: 8px; height: 8px; background: var(--off); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .optin-text { font-size: 10px; font-weight: 300; color: #AAAAAA; line-height: 1.6; letter-spacing: 0.01em; cursor: pointer; }
+  .optin-text strong { color: var(--mid); font-weight: 400; }
+  .submit-btn { width: 100%; background: var(--off); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 18px; border: none; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
+  .submit-btn:active { opacity: 0.8; }
+  .submit-btn:disabled { background: #222; color: #555; cursor: not-allowed; }
+  .submit-btn .btn-loading { display: none; }
+  .submit-btn.loading .btn-text { display: none; }
+  .submit-btn.loading .btn-loading { display: block; }
+  .privacy-note { font-size: 10px; font-weight: 300; color: #AAAAAA; text-align: center; line-height: 1.6; letter-spacing: 0.02em; }
+  .error-msg { font-size: 11px; color: #8b2020; display: none; margin-top: -8px; }
+  .error-msg.show { display: block; }
+  #thanks { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 60px 36px; text-align: center; }
+  .thanks-logo { font-size: 11px; font-weight: 600; letter-spacing: 0.55em; color: var(--dim); text-transform: uppercase; margin-bottom: 56px; }
+  .thanks-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 10vw, 52px); font-weight: 300; color: var(--off); line-height: 1.1; margin-bottom: 24px; }
+  .thanks-body { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 280px; margin: 0 auto 48px; letter-spacing: 0.01em; }
+  .thanks-link { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; text-decoration: none; padding: 16px; border: 1px solid #1c1c1c; -webkit-tap-highlight-color: transparent; }
+  .site-footer { padding: 28px 32px 48px; text-align: center; border-top: 1px solid #111; }
+  .footer-logo { font-size: 10px; font-weight: 600; letter-spacing: 0.6em; color: #333; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .footer-handle { font-size: 10px; font-weight: 300; color: #444; letter-spacing: 0.1em; }
+  @keyframes pageOut { to { opacity:0; transform:translateY(-8px); } }
+  @keyframes pageIn  { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .out { animation: pageOut 0.3s ease forwards; }
+  .in  { animation: pageIn 0.45s ease forwards; }
+</style>
+</head>
+<body>
+
+<div class="hero" id="s1">
+  <div class="logo">Stanii</div>
+  <div class="hero-title">Your closet<br>is worth<br>more than<br>you think.</div>
+  <p class="hero-body">
+    Bring your clothes to STANII.<br>
+    We review them and text you when we're done.<br>
+    You choose cash or store credit.
+  </p>
+  <button class="hero-cta" onclick="goTo('s1','how')">See how it works</button>
+</div>
+
+<div id="how">
+  <div class="page-top">
+    <div class="divider"></div>
+    <div class="page-headline">Sell your clothes.</div>
+    <p class="page-body">Bring your pieces, we review them, and text you when we're done. <strong>You choose cash or store credit.</strong></p>
+  </div>
+  <div class="payout-bar">
+    <div class="payout-cell">
+      <span class="pc-label">Option 1</span>
+      <span class="pc-value">Cash</span>
+    </div>
+    <div class="payout-cell">
+      <span class="pc-label">Option 2</span>
+      <span class="pc-value">Credit</span>
+    </div>
+  </div>
+  <div class="section-pad">
+    <span class="zone-label">How it works</span>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Bring your pieces</strong> — clean, any style, any quantity</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>We review them</strong> — we go through everything and decide what works for the floor</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>We text you when we're done</strong> — we'll reach out when we've finished reviewing your items</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You choose how you want it</strong> — cash or store credit</div></div>
+  </div>
+  <div class="section-pad">
+    <span class="zone-label">What we buy</span>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text">Women's and men's clothing, shoes, and accessories</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text">Vintage, designer, streetwear, everyday basics</div></div>
+    <div class="dash-row"><div class="dash">—</div><div class="dash-text">Clean condition — we can't accept damaged or stained pieces</div></div>
+  </div>
+  <div style="padding: 32px;">
+    <button class="next-btn" onclick="goTo('how','form-page')">Fill out your intake form</button>
+  </div>
+  <div class="site-footer">
+    <span class="footer-logo">Stanii</span>
+    <span class="footer-handle">@staniidallas &nbsp;&middot;&nbsp; 1906 Greenville Ave, Dallas TX</span>
+  </div>
+</div>
+
+<div id="form-page">
+  <div class="confirm-bar"><p>Intake Form</p></div>
+  <div style="padding: 40px 32px 20px; border-bottom: 1px solid var(--border); text-align: center;">
+    <span style="font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--off); display: block; margin-bottom: 10px;">Tell us about your pieces</span>
+    <span style="font-size: 11px; font-weight: 300; color: var(--mid); letter-spacing: 0.03em;">Drop this off with your pieces. We'll text you when we're done reviewing.</span>
+  </div>
+  <div class="form-zone">
+    <span class="form-label">Your details</span>
+    <div class="field-group">
+      <div class="field-wrap"><input type="text" id="fname" placeholder="First name" autocomplete="given-name"></div>
+      <div class="field-wrap"><input type="text" id="lname" placeholder="Last name" autocomplete="family-name"></div>
+      <div class="field-wrap"><input type="email" id="femail" placeholder="Email address" autocomplete="email" inputmode="email"></div>
+      <div class="error-msg" id="email-err">Please enter a valid email.</div>
+      <div class="field-wrap"><input type="tel" id="fphone" placeholder="Phone number" autocomplete="tel" inputmode="tel"></div>
+      <div class="error-msg" id="phone-err">Please enter a valid phone number.</div>
+    </div>
+    <div style="margin-top: 8px;">
+      <span class="form-label">About your pieces</span>
+      <div class="field-group">
+        <div class="field-wrap"><input type="number" id="fcount" placeholder="Approx. number of items" inputmode="numeric" min="1"></div>
+        <div class="field-wrap">
+          <select id="fcategory">
+            <option value="" disabled selected>Category (select one)</option>
+            <option>Women's clothing</option>
+            <option>Men's clothing</option>
+            <option>Mixed — women's and men's</option>
+            <option>Shoes</option>
+            <option>Accessories</option>
+            <option>Mixed — clothing and accessories</option>
+          </select>
+        </div>
+        <div class="field-wrap">
+          <select id="fpayout">
+            <option value="" disabled selected>Preferred payout (cash or credit)</option>
+            <option>Cash</option>
+            <option>Store credit</option>
+            <option>Either — I'll decide in store</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="optin-wrap">
+      <input type="checkbox" id="optin">
+      <label class="custom-check" for="optin"></label>
+      <label class="optin-text" for="optin">By submitting this form I agree to receive text messages from STANII about store credit, new drops, and events. <strong>Reply STOP to unsubscribe anytime.</strong></label>
+    </div>
+    <div class="error-msg" id="form-err">Please fill in your name, email, and number of items.</div>
+    <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">
+      <span class="btn-text">Submit</span>
+      <span class="btn-loading">One moment</span>
+    </button>
+    <p class="privacy-note">We'll see you at 1906 Greenville Ave, Dallas TX.</p>
+  </div>
+</div>
+
+<div id="thanks">
+  <div class="thanks-logo">Stanii</div>
+  <div class="thanks-title">See you<br>soon.</div>
+  <p class="thanks-body">We got your info. Come by 1906 Greenville Ave anytime during store hours and we'll take a look at your pieces.</p>
+  <a href="https://instagram.com/staniidallas" class="thanks-link">Follow @staniidallas</a>
+  <div class="site-footer" style="margin-top: 48px;">
+    <span class="footer-logo">Stanii</span>
+    <span class="footer-handle">@staniidallas &nbsp;&middot;&nbsp; 1906 Greenville Ave, Dallas TX</span>
+  </div>
+</div>
+
+<script>
+  function goTo(from, to) {
+    const fromEl = document.getElementById(from);
+    fromEl.classList.add('out');
+    setTimeout(() => {
+      fromEl.style.display = 'none';
+      const toEl = document.getElementById(to);
+      toEl.style.display = 'flex';
+      toEl.style.flexDirection = 'column';
+      toEl.classList.add('in');
+      window.scrollTo(0, 0);
+    }, 300);
+  }
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+  function isValidPhone(v) { return v.replace(/\D/g,'').length >= 10; }
+  function handleSubmit() {
+    const fname    = document.getElementById('fname').value.trim();
+    const lname    = document.getElementById('lname').value.trim();
+    const email    = document.getElementById('femail').value.trim();
+    const phone    = document.getElementById('fphone').value.trim();
+    const count    = document.getElementById('fcount').value.trim();
+    const category = document.getElementById('fcategory').value;
+    const payout   = document.getElementById('fpayout').value;
+    const optin    = document.getElementById('optin').checked;
+    const btn      = document.getElementById('submit-btn');
+    const err      = document.getElementById('form-err');
+    document.getElementById('email-err').classList.remove('show');
+    document.getElementById('phone-err').classList.remove('show');
+    err.style.display = 'none';
+    let valid = true;
+    if (!fname || !email || !count) { err.style.display = 'block'; valid = false; }
+    if (!isValidEmail(email)) {
+      document.getElementById('email-err').classList.add('show');
+      document.getElementById('femail').classList.add('error');
+      valid = false;
+    }
+    if (phone && !isValidPhone(phone)) {
+      document.getElementById('phone-err').classList.add('show');
+      document.getElementById('fphone').classList.add('error');
+      valid = false;
+    }
+    if (!valid) return;
+    btn.disabled = true;
+    btn.classList.add('loading');
+    const data = {
+      first_name:        fname,
+      last_name:         lname,
+      email,
+      phone,
+      item_count:        count,
+      category,
+      payout_preference: payout,
+      sms_optin:         optin ? 'YES — consented to texts' : 'NO — did not opt in',
+      type:              'Buy & Sell Intake',
+      source:            'QR Code / buysell page',
+      date:              new Date().toLocaleDateString('en-US'),
+      timestamp:         new Date().toISOString()
+    };
+    fetch('https://formspree.io/f/xdayzqgk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(() => {
+      btn.classList.remove('loading');
+      goTo('form-page', 'thanks');
+    }).catch(() => {
+      btn.classList.remove('loading');
+      goTo('form-page', 'thanks');
+    });
+  }
+</script>
+
+</body>
+</html>
