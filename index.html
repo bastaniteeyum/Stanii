@@ -1,363 +1,1075 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>STANII</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STANII — Curated Resale + Consignment, Dallas</title>
+<meta name="description" content="STANII is a curated resale shop on Greenville Ave, Dallas. We buy, we sell, we rent racks. Open 7 days." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root { --black: #080808; --off: #F4F1EC; --dim: #3a3a3a; --faint: #1c1c1c; --mid: #666; --border: #1e1e1e; }
-  html, body { background: var(--black); color: var(--off); font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  .divider { width: 32px; height: 1px; background: var(--dim); margin: 0 auto; }
-  @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
-  @keyframes fadeUp  { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes pageOut { to { opacity:0; transform:translateY(-8px); } }
-  @keyframes pageIn  { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-  .out { animation: pageOut 0.3s ease forwards; }
-  .in  { animation: pageIn 0.45s ease forwards; }
-  .zone-label { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; display: block; margin-bottom: 24px; }
-  .dash-row { display: flex; gap: 16px; margin-bottom: 16px; }
-  .dash-row:last-child { margin-bottom: 0; }
-  .dash { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--dim); flex-shrink: 0; line-height: 1.4; margin-top: -1px; }
-  .dash-text { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.55; letter-spacing: 0.01em; }
-  .dash-text strong { color: var(--off); font-weight: 500; }
-  .section-pad { padding: 32px; border-bottom: 1px solid var(--border); }
-  #s1 { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 36px; text-align: center; }
-  .s1-logo { font-size: 11px; font-weight: 600; letter-spacing: 0.55em; color: var(--dim); text-transform: uppercase; margin-bottom: 64px; opacity: 0; animation: fadeIn 0.8s 0.2s ease forwards; }
-  .s1-body { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; font-style: italic; color: var(--off); line-height: 1.7; max-width: 300px; margin: 0 auto 56px; opacity: 0; animation: fadeUp 0.9s 0.5s ease forwards; }
-  .s1-body strong { font-style: normal; font-weight: 400; }
-  .s1-cta { display: inline-block; background: transparent; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 16px 36px; border: 1px solid #2e2e2e; cursor: pointer; width: 100%; max-width: 280px; transition: border-color 0.2s, background 0.2s; -webkit-tap-highlight-color: transparent; opacity: 0; animation: fadeIn 0.7s 1s ease forwards; }
-  .s1-cta:active { background: #141414; border-color: #444; }
-  #s2 { display: none; min-height: 100vh; flex-direction: column; }
-  .gate-top { padding: 56px 32px 40px; text-align: center; border-bottom: 1px solid var(--border); }
-  .gate-top .divider { margin-bottom: 28px; }
-  .gate-headline { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--off); line-height: 1.2; margin: 16px 0 14px; letter-spacing: 0.02em; }
-  .gate-body { font-size: 12px; font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 280px; margin: 0 auto; letter-spacing: 0.02em; }
-  .gate-body strong { color: var(--off); font-weight: 500; }
-  .form-zone { padding: 32px; display: flex; flex-direction: column; gap: 16px; }
-  .form-label { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: #666; text-transform: uppercase; display: block; margin-bottom: 8px; }
-  .field-group { display: flex; flex-direction: column; gap: 10px; }
-  .field-wrap { position: relative; }
-  .field-wrap input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #3a3a3a; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; padding: 12px 0; outline: none; letter-spacing: 0.02em; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
-  .field-wrap input::placeholder { color: #555; }
-  .field-wrap input:focus { border-bottom-color: #888; }
-  .field-wrap input.error { border-bottom-color: #8b2020; }
-  .submit-btn { width: 100%; background: var(--off); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 18px; border: none; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
-  .submit-btn:active { opacity: 0.8; }
-  .submit-btn:disabled { background: #222; color: #555; cursor: not-allowed; }
-  .submit-btn .btn-loading { display: none; }
-  .submit-btn.loading .btn-text { display: none; }
-  .submit-btn.loading .btn-loading { display: block; }
-  .privacy-note { font-size: 10px; font-weight: 300; color: #444; text-align: center; line-height: 1.6; letter-spacing: 0.02em; }
-  .error-msg { font-size: 11px; color: #8b2020; display: none; margin-top: -8px; letter-spacing: 0.02em; }
-  .error-msg.show { display: block; }
-  #s3 { display: none; min-height: 100vh; flex-direction: column; }
-  .confirm-bar { background: var(--off); padding: 10px 24px; text-align: center; }
-  .confirm-bar p { font-size: 9px; font-weight: 600; letter-spacing: 0.4em; color: var(--black); text-transform: uppercase; }
-  .reveal-hero { padding: 56px 32px 44px; text-align: center; border-bottom: 1px solid var(--border); }
-  .r-tag { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; display: block; margin-bottom: 32px; }
-  .r-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 16vw, 80px); font-weight: 300; color: var(--off); line-height: 0.9; letter-spacing: -0.01em; }
-  .r-sub { font-size: 9px; font-weight: 600; letter-spacing: 0.55em; color: var(--dim); text-transform: uppercase; display: block; margin-top: 20px; }
-  .details-bar { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
-  .detail-cell { padding: 22px 16px; text-align: center; border-right: 1px solid var(--border); }
-  .detail-cell:last-child { border-right: none; }
-  .dc-label { font-size: 8px; font-weight: 600; letter-spacing: 0.4em; color: var(--dim); text-transform: uppercase; display: block; margin-bottom: 6px; }
-  .dc-value { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; color: var(--off); line-height: 1; display: block; }
-  .dc-sub { font-size: 9px; font-weight: 300; color: var(--mid); display: block; margin-top: 4px; letter-spacing: 0.05em; }
-  .serif-quote { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--off); line-height: 1.25; letter-spacing: 0.01em; margin-bottom: 16px; }
-  .body-copy { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.65; letter-spacing: 0.01em; }
-  .body-copy strong { color: var(--off); font-weight: 500; }
-  .cta-zone { padding: 32px; display: flex; flex-direction: column; gap: 12px; }
-  .btn-primary { display: block; width: 100%; background: var(--off); color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; padding: 18px; text-align: center; text-decoration: none; border: none; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; cursor: pointer; }
-  .btn-primary:active { opacity: 0.85; }
-  .btn-outline { display: block; width: 100%; background: transparent; color: var(--mid); font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; padding: 16px; text-align: center; text-decoration: none; border: 1px solid #1c1c1c; -webkit-tap-highlight-color: transparent; }
-  #s4 { display: none; min-height: 100vh; flex-direction: column; }
-  .rack-hero { padding: 56px 32px 44px; text-align: center; border-bottom: 1px solid var(--border); }
-  .rack-tag { font-size: 9px; font-weight: 600; letter-spacing: 0.45em; color: var(--mid); text-transform: uppercase; display: block; margin-bottom: 32px; }
-  .rack-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 13vw, 68px); font-weight: 300; color: var(--off); line-height: 0.9; letter-spacing: -0.01em; }
-  .rack-sub { font-size: 13px; font-weight: 300; font-style: italic; color: var(--mid); display: block; margin-top: 20px; font-family: 'Cormorant Garamond', serif; line-height: 1.6; max-width: 280px; margin-left: auto; margin-right: auto; }
-  .stat-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
-  .stat-cell { padding: 22px 12px; text-align: center; border-right: 1px solid var(--border); }
-  .stat-cell:last-child { border-right: none; }
-  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--off); line-height: 1; display: block; margin-bottom: 6px; }
-  .stat-label { font-size: 9px; font-weight: 600; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; display: block; line-height: 1.4; }
-  .rack-form { padding: 32px; display: flex; flex-direction: column; gap: 16px; }
-  .rack-form textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid #3a3a3a; color: var(--off); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; padding: 12px 0; outline: none; letter-spacing: 0.02em; transition: border-color 0.2s; resize: none; line-height: 1.6; }
-  .rack-form textarea::placeholder { color: #555; }
-  .rack-form textarea:focus { border-bottom-color: #888; }
-  .rack-options { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
-  .rack-option { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; }
-  .rack-option input[type="radio"] { display: none; }
-  .rack-radio { width: 14px; height: 14px; border: 1px solid #3a3a3a; border-radius: 50%; flex-shrink: 0; position: relative; transition: border-color 0.2s; }
-  .rack-option input[type="radio"]:checked + .rack-radio { border-color: var(--off); }
-  .rack-option input[type="radio"]:checked + .rack-radio::after { content: ''; position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--off); top: 50%; left: 50%; transform: translate(-50%, -50%); }
-  .rack-option-text { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.4; letter-spacing: 0.01em; }
-  .rack-option-text strong { color: var(--off); font-weight: 500; }
-  .rack-option-text span { display: block; font-size: 10px; color: #444; margin-top: 2px; }
-  .site-footer { padding: 28px 32px 48px; text-align: center; border-top: 1px solid #111; }
-  .footer-logo { font-size: 10px; font-weight: 600; letter-spacing: 0.6em; color: #222; text-transform: uppercase; display: block; margin-bottom: 6px; }
-  .footer-handle { font-size: 10px; font-weight: 300; color: #2a2a2a; letter-spacing: 0.1em; }
+  :root {
+    --bg: #0a0a0a;
+    --bg-soft: #0d0c0a;
+    --ink: #f4f1ea;
+    --muted: #8a857c;
+    --rule: #1f1d1a;
+    --accent: #d4c5a0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 22px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    letter-spacing: 0.35em;
+    font-weight: 500;
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  nav .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.3s;
+  }
+
+  nav .nav-links a:hover { color: var(--ink); }
+
+  nav .nav-links a.cta {
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    padding: 10px 20px;
+    transition: all 0.3s;
+  }
+
+  nav .nav-links a.cta:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 18px 20px; }
+    nav .nav-links { gap: 18px; }
+    nav .nav-links a:not(.cta) { display: none; }
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 32px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(56px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin-bottom: 48px;
+  }
+
+  .hero h1.hero-stanii {
+    font-weight: 400;
+    font-size: clamp(96px, 22vw, 320px);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    margin-bottom: 56px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 1.3vw, 18px);
+    max-width: 540px;
+    color: var(--muted);
+    margin-bottom: 56px;
+    line-height: 1.7;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* META BAR */
+  .meta-bar {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .meta-bar span { display: flex; align-items: center; gap: 10px; }
+  .meta-bar .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    display: inline-block;
+    padding: 18px 40px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: 1px solid var(--ink);
+  }
+  .btn-primary:hover { background: transparent; color: var(--ink); }
+
+  .btn-ghost {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* SECTION FRAME */
+  section {
+    padding: 140px 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -0.018em;
+    margin-bottom: 32px;
+    max-width: 920px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .section-lede {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 80px;
+    line-height: 1.7;
+  }
+
+  /* SERVICES */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .service {
+    background: var(--bg);
+    padding: 56px 40px 48px;
+    transition: background 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .service:hover { background: var(--bg-soft); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  .service h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .service p {
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 32px;
+    flex-grow: 1;
+  }
+
+  .service .service-link {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+    align-self: flex-start;
+    transition: all 0.3s;
+  }
+  .service .service-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .service .service-link::after { content: '→'; transition: transform 0.3s; }
+  .service .service-link:hover::after { transform: translateX(4px); }
+
+  /* PHILOSOPHY */
+  .philosophy {
+    background: var(--bg-soft);
+    padding: 160px 32px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .philosophy-inner { max-width: 820px; margin: 0 auto; }
+
+  .philosophy blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .philosophy blockquote::before,
+  .philosophy blockquote::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto;
+  }
+  .philosophy blockquote::before { margin-bottom: 40px; }
+  .philosophy blockquote::after { margin-top: 40px; }
+
+  /* VISIT */
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .visit-info dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 32px 48px;
+  }
+
+  .visit-info dt {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 6px;
+  }
+
+  .visit-info dd {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+
+  .visit-info dd .small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 0;
+    font-weight: 300;
+  }
+
+  .visit-actions {
+    margin-top: 56px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .map-card {
+    border: 1px solid var(--rule);
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #0d0c0a 0%, #15130f 100%);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(212, 197, 160, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 197, 160, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .map-card-content { position: relative; z-index: 1; }
+
+  .map-pin {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .map-pin em { font-style: italic; color: var(--accent); }
+
+  .map-coords {
+    font-family: 'Inter', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .map-card .btn-primary {
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* INSTAGRAM */
+  .ig-section {
+    border-top: 1px solid var(--rule);
+    background: var(--bg-soft);
+    padding: 140px 32px;
+  }
+
+  .ig-inner { max-width: 1280px; margin: 0 auto; }
+
+  .ig-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .ig-header .section-title { margin-bottom: 0; }
+
+  .ig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .ig-tile {
+    aspect-ratio: 1;
+    background: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.4s;
+    display: block;
+  }
+  .ig-tile:hover { opacity: 0.85; }
+
+  .ig-tile-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0d0c0a, #15130f);
+    color: var(--muted);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .ig-tile blockquote.instagram-media {
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 80px 32px 48px;
+    text-align: center;
+  }
+
+  footer .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    letter-spacing: 0.4em;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  footer .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+
+  footer .meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  footer .meta a { transition: color 0.3s; }
+  footer .meta a:hover { color: var(--ink); }
+
+  footer .copy {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .services { grid-template-columns: 1fr; }
+    .visit-grid { grid-template-columns: 1fr; gap: 56px; }
+    .visit-info dl { grid-template-columns: 1fr; gap: 28px 0; }
+    .visit-info dt { padding-top: 0; }
+    .visit-info dd { margin-bottom: 12px; }
+    .map-card { aspect-ratio: 1; }
+    .ig-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    section { padding: 90px 20px; }
+    .hero { padding: 120px 20px 60px; }
+    .meta-bar { padding: 20px; }
+    .philosophy { padding: 100px 20px; }
+    .ig-section { padding: 90px 20px; }
+    .service { padding: 44px 28px; }
+    .service h3 { font-size: 38px; }
+    .map-card { padding: 32px; }
+    .map-pin { font-size: 42px; }
+    .ig-grid { grid-template-columns: 1fr; }
+  }
+
+  /* EMAIL POPUP */
+  .popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .popup-overlay.show { display: flex; opacity: 1; }
+
+  .popup-card {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    max-width: 480px;
+    width: 100%;
+    padding: 56px 44px 48px;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.6s ease;
+  }
+
+  .popup-overlay.show .popup-card { transform: translateY(0); }
+
+  .popup-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 24px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+    font-family: 'Inter', sans-serif;
+  }
+  .popup-close:hover { color: var(--ink); }
+
+  .popup-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .popup-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+  }
+  .popup-title em { font-style: italic; color: var(--accent); }
+
+  .popup-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+
+  .popup-form input {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    margin-bottom: 8px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    transition: border-color 0.3s;
+  }
+  .popup-form input::placeholder { color: var(--muted); }
+  .popup-form input:focus { outline: none; border-bottom-color: var(--accent); }
+
+  .popup-submit {
+    width: 100%;
+    padding: 18px;
+    background: var(--ink);
+    color: var(--bg);
+    border: 1px solid var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 28px;
+    transition: all 0.3s;
+  }
+  .popup-submit:hover { background: transparent; color: var(--ink); }
+
+  .popup-decline {
+    display: block;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 20px auto 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--rule);
+    transition: color 0.3s;
+    font-family: 'Inter', sans-serif;
+  }
+  .popup-decline:hover { color: var(--ink); }
+
+  .popup-consent {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+
+  .popup-consent input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--muted);
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.25s;
+    position: relative;
+    border-radius: 0;
+  }
+
+  .popup-consent input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .popup-consent input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .popup-consent span {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.55;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+  }
+
+  .popup-thanks { text-align: center; padding: 20px 0; }
+  .popup-thanks h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .popup-thanks p { color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 480px) {
+    .popup-card { padding: 44px 28px 36px; }
+    .popup-title { font-size: 36px; }
+  }
+
+  /* REVEAL */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .fade-up.in { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<div id="s1">
-  <div class="s1-logo">Stanii</div>
-  <p class="s1-body">
-    Something is coming to Greenville Ave.<br><br>
-    And the people who find out first<br>
-    get in <strong>before everyone else.</strong>
-  </p>
-  <button class="s1-cta" onclick="goTo('s1','s2')">Get first access</button>
+<nav>
+  <a href="/" class="logo">STANII</a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#visit">Visit</a>
+    <a href="/rack" class="cta">Rent a Rack</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Curated Resale + Consignment · Dallas</div>
+  <h1 class="hero-stanii">STANII</h1>
+  <p class="hero-sub">A shop on Greenville Ave.<br/>Open seven days.</p>
+  <div class="hero-cta-row">
+    <a href="#visit" class="btn-ghost">Visit the shop →</a>
+    <a href="/rack" class="btn-ghost">Rent a rack →</a>
+  </div>
+</section>
+
+<div class="meta-bar">
+  <span><span class="dot"></span>Open today · 11AM – 8PM</span>
+  <span>1906 Greenville Ave, Dallas</span>
+  <span><a href="https://instagram.com/staniidallas" target="_blank">@staniidallas</a></span>
 </div>
 
-<div id="s2">
-  <div class="gate-top">
-    <div class="divider"></div>
-    <div class="gate-headline">Be the first<br>inside STANII.</div>
-    <p class="gate-body">Enter your details to unlock what's coming — and receive <strong>exclusive access</strong> before we open.</p>
-  </div>
-  <div class="section-pad" style="border-bottom:1px solid var(--border);">
-    <span class="zone-label">What you receive</span>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>10% off your first purchase</strong> opening week — sent to you by text</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>First access</strong> to rack rental applications before they open publicly</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>New drop alerts</strong> — first to know when fresh inventory hits the floor</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Early entry</strong> to all STANII events before general doors open</div></div>
-  </div>
-  <div class="form-zone">
-    <span class="form-label">Your details</span>
-    <div class="field-group">
-      <div class="field-wrap"><input type="text" id="fname" placeholder="First name" autocomplete="given-name"></div>
-      <div class="field-wrap"><input type="email" id="femail" placeholder="Email address" autocomplete="email" inputmode="email"></div>
-      <div class="error-msg" id="email-err">Please enter a valid email.</div>
-      <div class="field-wrap"><input type="tel" id="fphone" placeholder="Phone number" autocomplete="tel" inputmode="tel"></div>
-      <div class="error-msg" id="phone-err">Please enter a valid phone number.</div>
-    </div>
-    <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">
-      <span class="btn-text">Unlock access</span>
-      <span class="btn-loading">One moment</span>
-    </button>
-    <p class="privacy-note">We will text you about STANII drops and events. No spam. Unsubscribe anytime.</p>
-  </div>
-</div>
+<section id="services">
+  <div class="section-label">What we do</div>
+  <h2 class="section-title">Three ways<br/>to <em>STANII.</em></h2>
+  <p class="section-lede">However you want to engage — as a shopper, a seller, or a tenant on our floor — we've built a way in.</p>
 
-<div id="s3">
-  <div class="confirm-bar"><p>You are on the list</p></div>
-  <div class="reveal-hero">
-    <span class="r-tag">Opening soon — Dallas, TX</span>
-    <div class="r-title">STANII</div>
-    <span class="r-sub">1906 Greenville Ave &nbsp;&middot;&nbsp; Dallas</span>
-  </div>
-  <div class="details-bar">
-    <div class="detail-cell">
-      <span class="dc-label">Address</span>
-      <span class="dc-value">1906</span>
-      <span class="dc-sub">Greenville Ave, Dallas</span>
+  <div class="services">
+    <div class="service">
+      <div class="service-num">No. 01</div>
+      <h3>Shop</h3>
+      <p>A curated mix of hand picked pieces. New arrivals every week.</p>
+      <a href="#visit" class="service-link">Come see</a>
     </div>
-    <div class="detail-cell">
-      <span class="dc-label">Your perk</span>
-      <span class="dc-value">10%</span>
-      <span class="dc-sub">Off opening week — code by text</span>
+
+    <div class="service">
+      <div class="service-num">No. 02</div>
+      <h3>Sell</h3>
+      <p>Bring in your pieces and walk out with cash or store credit. We buy direct.</p>
+      <a href="#visit" class="service-link">Bring your pieces</a>
+    </div>
+
+    <div class="service">
+      <div class="service-num">No. 03</div>
+      <h3>Rent a Rack</h3>
+      <p>Showcase your closet inside the shop. Set your prices, keep 70% of every sale, two-week cycles. Your name stays on your rack.</p>
+      <a href="/rack" class="service-link">Apply</a>
     </div>
   </div>
-  <div class="section-pad">
-    <span class="zone-label">What we are</span>
-    <div class="serif-quote">A circular closet<br>for Dallas.</div>
-    <p class="body-copy">STANII is a resale boutique at 1906 Greenville Ave. Buy curated secondhand. Sell what you no longer wear. Or rent a rack and keep <strong>70% of every sale.</strong> Fashion that moves. Nothing that wastes.</p>
-  </div>
-  <div class="section-pad">
-    <span class="zone-label">How it works</span>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Shop</strong> — curated resale across women's, men's, vintage, and designer</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Sell</strong> — bring your pieces, we make an offer on the spot</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Rent a rack</strong> — set your own prices, keep 70% of every sale</div></div>
-  </div>
-  <div class="cta-zone">
-    <button class="btn-primary" onclick="goTo('s3','s4')">Rent a rack at STANII</button>
-    <a href="https://instagram.com/staniidallas" class="btn-outline">Follow @staniidallas</a>
-    <a href="https://maps.apple.com/?address=1906+Greenville+Ave+Dallas+TX" class="btn-outline">Get directions</a>
-  </div>
-  <div class="site-footer">
-    <span class="footer-logo">Stanii</span>
-    <span class="footer-handle">@staniidallas &nbsp;&middot;&nbsp; 1906 Greenville Ave, Dallas TX</span>
+</section>
+
+<div class="philosophy">
+  <div class="philosophy-inner">
+    <blockquote>
+      Closets,<br/><em>on rotation.</em>
+    </blockquote>
   </div>
 </div>
 
-<div id="s4">
-  <div class="rack-hero">
-    <span class="rack-tag">Stanii &nbsp;&middot;&nbsp; Rent a Rack</span>
-    <div class="rack-title">Your closet<br>should pay<br>you back.</div>
-    <span class="rack-sub">You set the prices. We handle the floor.<br>70% of every sale goes directly to you.</span>
-  </div>
-  <div class="stat-bar">
-    <div class="stat-cell"><span class="stat-value">70%</span><span class="stat-label">Yours on every sale</span></div>
-    <div class="stat-cell"><span class="stat-value">2wk</span><span class="stat-label">Rental cycles</span></div>
-    <div class="stat-cell"><span class="stat-value">50</span><span class="stat-label">Items per rack</span></div>
-  </div>
-  <div class="section-pad">
-    <span class="zone-label">How it works</span>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You drop off</strong> your pieces clean and ready — we take care of hanging them</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You set the prices</strong> — we recommend 1/3 of retail for fastest sell-through</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>We sell it</strong> — STANII handles the floor, the shoppers, and the transactions</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You get paid</strong> — 70% of your sales via Zelle or Venmo every week of your rental cycle</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>You collect</strong> anything unsold within 3 days of your rental end date</div></div>
-  </div>
-  <div class="section-pad">
-    <span class="zone-label">Pricing</span>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Full rack, 2 weeks</strong> — $120 &nbsp;·&nbsp; up to 50 items</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Half rack, 2 weeks</strong> — $80 &nbsp;·&nbsp; up to 25 items</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Full rack, 1 week</strong> — $80 &nbsp;·&nbsp; up to 50 items</div></div>
-    <div class="dash-row"><div class="dash">—</div><div class="dash-text"><strong>Premium spot</strong> — $135 &nbsp;·&nbsp; highest traffic position near entrance</div></div>
-  </div>
-  <div class="rack-form">
-    <span class="form-label">Apply for your rack</span>
-    <div class="field-group">
-      <div class="field-wrap"><input type="text" id="rname" placeholder="Full name" autocomplete="name"></div>
-      <div class="field-wrap"><input type="tel" id="rphone" placeholder="Phone number" autocomplete="tel" inputmode="tel"></div>
-      <div class="field-wrap"><input type="email" id="remail" placeholder="Email address" autocomplete="email" inputmode="email"></div>
-      <div class="field-wrap"><input type="text" id="rinstagram" placeholder="Instagram handle" autocomplete="off"></div>
-    </div>
-    <div style="margin-top: 8px;">
-      <span class="form-label" style="margin-bottom: 16px;">Rack size</span>
-      <div class="rack-options">
-        <label class="rack-option">
-          <input type="radio" name="rack-size" value="Full rack 2 weeks $120">
-          <div class="rack-radio"></div>
-          <div class="rack-option-text"><strong>Full rack — 2 weeks</strong><span>$120 &nbsp;·&nbsp; up to 50 items</span></div>
-        </label>
-        <label class="rack-option">
-          <input type="radio" name="rack-size" value="Half rack 2 weeks $80">
-          <div class="rack-radio"></div>
-          <div class="rack-option-text"><strong>Half rack — 2 weeks</strong><span>$80 &nbsp;·&nbsp; up to 25 items</span></div>
-        </label>
-        <label class="rack-option">
-          <input type="radio" name="rack-size" value="Full rack 1 week $80">
-          <div class="rack-radio"></div>
-          <div class="rack-option-text"><strong>Full rack — 1 week</strong><span>$80 &nbsp;·&nbsp; up to 50 items</span></div>
-        </label>
-        <label class="rack-option">
-          <input type="radio" name="rack-size" value="Premium spot $135">
-          <div class="rack-radio"></div>
-          <div class="rack-option-text"><strong>Premium spot</strong><span>$135 &nbsp;·&nbsp; highest traffic rack near entrance</span></div>
-        </label>
+<section id="visit">
+  <div class="section-label">Visit</div>
+  <h2 class="section-title">Come <em>hang.</em></h2>
+
+  <div class="visit-grid">
+    <div class="visit-info">
+      <dl>
+        <dt>Where</dt>
+        <dd>1906 Greenville Ave<span class="small">Dallas, TX 75206</span></dd>
+
+        <dt>When</dt>
+        <dd>Open daily<span class="small">Monday – Sunday · 11AM – 8PM</span></dd>
+
+        <dt>Find us</dt>
+        <dd>@staniidallas<span class="small">Tag us when you wear it</span></dd>
+      </dl>
+
+      <div class="visit-actions">
+        <a href="https://maps.google.com/?q=1906+Greenville+Ave+Dallas+TX+75206" target="_blank" class="btn-primary">Get Directions</a>
+        <a href="https://instagram.com/staniidallas" target="_blank" class="btn-ghost">Follow on Instagram →</a>
       </div>
     </div>
-    <div class="field-wrap" style="margin-top: 8px;">
-      <textarea id="rstyle" rows="3" placeholder="Describe your style and what you plan to sell (e.g. vintage women's, streetwear, mixed designer)"></textarea>
+
+    <div class="map-card">
+      <div class="map-card-content">
+        <div class="map-pin">1906<br/><em>Greenville</em></div>
+        <div class="map-coords">32.8121° N · 96.7705° W</div>
+      </div>
+      <a href="https://maps.google.com/?q=1906+Greenville+Ave+Dallas+TX+75206" target="_blank" class="btn-primary">Open in Maps</a>
     </div>
-    <div class="error-msg" id="rack-err" style="display:none;">Please fill in your name, phone, and email.</div>
-    <button class="submit-btn" id="rack-submit-btn" onclick="handleRackSubmit()">
-      <span class="btn-text">Submit application</span>
-      <span class="btn-loading">One moment</span>
-    </button>
-    <p class="privacy-note">We review all applications within 48 hours and will reach out by text.</p>
   </div>
-  <div class="site-footer">
-    <span class="footer-logo">Stanii</span>
-    <span class="footer-handle">@staniidallas &nbsp;&middot;&nbsp; 1906 Greenville Ave, Dallas TX</span>
+</section>
+
+<div class="ig-section">
+  <div class="ig-inner">
+    <div class="ig-header">
+      <div>
+        <div class="section-label">Latest</div>
+        <h2 class="section-title">From the <em>floor.</em></h2>
+      </div>
+      <a href="https://instagram.com/staniidallas" target="_blank" class="btn-ghost">@staniidallas →</a>
+    </div>
+
+    <div class="ig-grid">
+      <a href="https://instagram.com/staniidallas" target="_blank" class="ig-tile">
+        <div class="ig-tile-placeholder">Instagram post<br/>placeholder</div>
+      </a>
+      <a href="https://instagram.com/staniidallas" target="_blank" class="ig-tile">
+        <div class="ig-tile-placeholder">Instagram post<br/>placeholder</div>
+      </a>
+      <a href="https://instagram.com/staniidallas" target="_blank" class="ig-tile">
+        <div class="ig-tile-placeholder">Instagram post<br/>placeholder</div>
+      </a>
+    </div>
   </div>
 </div>
 
+<footer>
+  <div class="logo">STANII</div>
+  <div class="tagline">Curated resale · Greenville Ave · Dallas</div>
+  <div class="meta">
+    <a href="#services">Shop</a>
+    <a href="/rack">Rent a Rack</a>
+    <a href="#visit">Visit</a>
+    <a href="https://instagram.com/staniidallas" target="_blank">Instagram</a>
+  </div>
+  <div class="copy">© 2026 STANII Dallas</div>
+</footer>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup-card">
+    <button class="popup-close" id="popup-close" aria-label="Close">×</button>
+    <div id="popup-content">
+      <div class="popup-eyebrow">Welcome to STANII</div>
+      <h2 class="popup-title">Get <em>10% off</em><br/>your first visit.</h2>
+      <p class="popup-sub">Drop your info to be first to know about new arrivals, drops, and sales.</p>
+
+      <form action="https://formspree.io/f/xdapwvnj" method="POST" class="popup-form" id="popup-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone (for text drops)" required />
+
+        <label class="popup-consent">
+          <input type="checkbox" name="sms_consent" value="yes" required />
+          <span>I agree to receive recurring marketing texts from STANII at the number provided. Msg & data rates may apply. Reply STOP to unsubscribe.</span>
+        </label>
+
+        <button type="submit" class="popup-submit">Claim My 10% Off</button>
+      </form>
+
+      <button class="popup-decline" id="popup-decline">No thanks</button>
+    </div>
+  </div>
+</div>
+
+<script async src="//www.instagram.com/embed.js"></script>
+
 <script>
-  function goTo(from, to) {
-    const fromEl = document.getElementById(from);
-    fromEl.classList.add('out');
-    setTimeout(() => {
-      fromEl.style.display = 'none';
-      const toEl = document.getElementById(to);
-      toEl.style.display = 'flex';
-      toEl.style.flexDirection = 'column';
-      toEl.classList.add('in');
-      window.scrollTo(0, 0);
-    }, 300);
-  }
+  const els = document.querySelectorAll('section, .philosophy, .ig-section');
+  els.forEach(el => el.classList.add('fade-up'));
 
-  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
-  function isValidPhone(v) { return v.replace(/\D/g,'').length >= 10; }
-
-  function handleSubmit() {
-    const email = document.getElementById('femail').value.trim();
-    const phone = document.getElementById('fphone').value.trim();
-    const btn   = document.getElementById('submit-btn');
-    document.getElementById('email-err').classList.remove('show');
-    document.getElementById('phone-err').classList.remove('show');
-    document.getElementById('femail').classList.remove('error');
-    document.getElementById('fphone').classList.remove('error');
-    let valid = true;
-    if (!isValidEmail(email)) {
-      document.getElementById('email-err').classList.add('show');
-      document.getElementById('femail').classList.add('error');
-      valid = false;
-    }
-    if (phone && !isValidPhone(phone)) {
-      document.getElementById('phone-err').classList.add('show');
-      document.getElementById('fphone').classList.add('error');
-      valid = false;
-    }
-    if (!valid) return;
-    btn.disabled = true;
-    btn.classList.add('loading');
-    const data = {
-      name: document.getElementById('fname').value.trim(),
-      email, phone,
-      type: 'First Access Signup',
-      source: 'QR Poster',
-      timestamp: new Date().toISOString()
-    };
-    fetch('https://formspree.io/f/xdapwvnj', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).then(() => {
-      btn.classList.remove('loading');
-      goTo('s2', 's3');
-    }).catch(() => {
-      btn.classList.remove('loading');
-      goTo('s2', 's3');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
     });
+  }, { threshold: 0.08 });
+
+  els.forEach(el => io.observe(el));
+  document.querySelector('.hero')?.classList.add('in');
+
+  const popup = document.getElementById('popup');
+  const popupContent = document.getElementById('popup-content');
+  const popupClose = document.getElementById('popup-close');
+  const popupDecline = document.getElementById('popup-decline');
+  const popupForm = document.getElementById('popup-form');
+
+  function hidePopup() {
+    popup.classList.remove('show');
+    setTimeout(() => { popup.style.display = 'none'; }, 500);
   }
 
-  function handleRackSubmit() {
-    const name  = document.getElementById('rname').value.trim();
-    const phone = document.getElementById('rphone').value.trim();
-    const email = document.getElementById('remail').value.trim();
-    const ig    = document.getElementById('rinstagram').value.trim();
-    const style = document.getElementById('rstyle').value.trim();
-    const size  = document.querySelector('input[name="rack-size"]:checked');
-    const btn   = document.getElementById('rack-submit-btn');
-    const err   = document.getElementById('rack-err');
-    err.style.display = 'none';
-    if (!name || !phone || !email) { err.style.display = 'block'; return; }
-    btn.disabled = true;
-    btn.classList.add('loading');
-    const data = {
-      name, phone, email,
-      instagram:  ig,
-      rack_size:  size ? size.value : 'Not selected',
-      style_desc: style,
-      type:       'Rack Rental Application',
-      source:     'QR Landing Page',
-      timestamp:  new Date().toISOString()
-    };
-    fetch('https://formspree.io/f/xkokjbkq', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).then(() => {
-      btn.classList.remove('loading');
-      btn.textContent = 'Application submitted';
-      btn.style.background = '#1a1a1a';
-      btn.style.color = '#666';
-      const conf = document.createElement('p');
-      conf.style.cssText = 'font-size:13px;font-weight:300;color:#666;line-height:1.65;letter-spacing:0.01em;text-align:center;margin-top:8px;font-family:Montserrat,sans-serif;';
-      conf.innerHTML = 'We will be in touch within 48 hours.';
-      btn.parentNode.insertBefore(conf, btn.nextSibling);
-    }).catch(() => {
-      btn.classList.remove('loading');
-      btn.textContent = 'Application submitted';
-    });
+  function showPopup() {
+    const status = localStorage.getItem('stanii_popup');
+    if (status === 'submitted') return;
+    if (status === 'dismissed') {
+      const dismissedAt = parseInt(localStorage.getItem('stanii_popup_dismissed_at') || '0');
+      if (Date.now() - dismissedAt < 3 * 24 * 60 * 60 * 1000) return;
+    }
+    popup.style.display = 'flex';
+    requestAnimationFrame(() => popup.classList.add('show'));
   }
+
+  setTimeout(showPopup, 4000);
+
+  popupClose?.addEventListener('click', () => {
+    localStorage.setItem('stanii_popup', 'dismissed');
+    localStorage.setItem('stanii_popup_dismissed_at', Date.now().toString());
+    hidePopup();
+  });
+
+  popupDecline?.addEventListener('click', () => {
+    localStorage.setItem('stanii_popup', 'dismissed');
+    localStorage.setItem('stanii_popup_dismissed_at', Date.now().toString());
+    hidePopup();
+  });
+
+  popup?.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      localStorage.setItem('stanii_popup', 'dismissed');
+      localStorage.setItem('stanii_popup_dismissed_at', Date.now().toString());
+      hidePopup();
+    }
+  });
+
+  popupForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(popupForm);
+
+    try {
+      const res = await fetch(popupForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        localStorage.setItem('stanii_popup', 'submitted');
+        popupContent.innerHTML = `
+          <div class="popup-thanks">
+            <h3>You're in.</h3>
+            <p>Check your email for your 10% off code.<br/>See you on Greenville Ave.</p>
+          </div>
+        `;
+        setTimeout(hidePopup, 3500);
+      } else {
+        alert('Something went wrong. Try again?');
+      }
+    } catch (err) {
+      alert('Something went wrong. Try again?');
+    }
+  });
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
