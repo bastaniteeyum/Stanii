@@ -1,651 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
 <title>Rent a Rack — STANII</title>
-<meta name="description" content="Rent a rack at STANII Dallas. Sell your pieces, keep 70%. 2-week cycles." />
-
+<meta name="description" content="Rent a rack at STANII Dallas. Sell your pieces, keep 70%. 2-week cycles."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --ink: #f4f1ea;
-    --muted: #8a857c;
-    --rule: #1f1d1a;
-    --accent: #d4c5a0;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  .serif {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 24px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  nav .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    letter-spacing: 0.3em;
-    font-weight: 500;
-  }
-
-  nav .back {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  nav .back:hover { color: var(--ink); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 120px 32px 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 32px;
-  }
-
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(48px, 9vw, 128px);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    margin-bottom: 40px;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    font-weight: 300;
-    color: var(--accent);
-  }
-
-  .hero-sub {
-    font-size: 16px;
-    max-width: 520px;
-    color: var(--muted);
-    margin-bottom: 48px;
-  }
-
-  .cta-row {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    padding: 18px 40px;
-    background: var(--ink);
-    color: var(--bg);
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: all 0.3s;
-    border: 1px solid var(--ink);
-  }
-
-  .btn-primary:hover {
-    background: transparent;
-    color: var(--ink);
-  }
-
-  .btn-ghost {
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 6px;
-    transition: all 0.3s;
-  }
-
-  .btn-ghost:hover {
-    color: var(--ink);
-    border-bottom-color: var(--ink);
-  }
-
-  /* SECTION */
-  section {
-    padding: 120px 32px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .section-label::before {
-    content: '';
-    width: 32px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.015em;
-    margin-bottom: 64px;
-    max-width: 800px;
-  }
-
-  /* PRICING */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-  }
-
-  .price-card {
-    background: var(--bg);
-    padding: 56px 40px;
-    position: relative;
-    transition: background 0.4s;
-  }
-
-  .price-card:hover { background: #0f0e0c; }
-
-  .price-tier {
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 32px;
-  }
-
-  .price-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 56px;
-    font-weight: 300;
-    line-height: 1;
-    margin-bottom: 16px;
-  }
-
-  .price-pieces {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: var(--accent);
-    margin-bottom: 48px;
-  }
-
-  .price-amount {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 8px;
-  }
-
-  .price-amount .dollar {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    color: var(--muted);
-  }
-
-  .price-amount .number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 80px;
-    font-weight: 300;
-    line-height: 1;
-  }
-
-  .price-cycle {
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 40px;
-  }
-
-  .price-includes {
-    list-style: none;
-    border-top: 1px solid var(--rule);
-    padding-top: 32px;
-  }
-
-  .price-includes li {
-    padding: 12px 0;
-    font-size: 14px;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .price-includes li::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* HOW IT WORKS */
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 48px;
-    margin-top: 32px;
-  }
-
-  .step {
-    border-top: 1px solid var(--rule);
-    padding-top: 32px;
-  }
-
-  .step-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
-
-  .step h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
-
-  .step p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* SPLIT */
-  .split-banner {
-    text-align: center;
-    padding: 120px 32px;
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .split-figure {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(80px, 16vw, 200px);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    margin-bottom: 24px;
-  }
-
-  .split-figure em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .split-caption {
-    font-size: 13px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* FORM */
-  .apply-section {
-    background: #0d0c0a;
-    padding: 120px 32px;
-    border-top: 1px solid var(--rule);
-  }
-
-  .apply-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .form-row {
-    margin-bottom: 32px;
-  }
-
-  .form-row label {
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-
-  .form-row input,
-  .form-row select,
-  .form-row textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--rule);
-    padding: 12px 0;
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    transition: border-color 0.3s;
-  }
-
-  .form-row input:focus,
-  .form-row select:focus,
-  .form-row textarea:focus {
-    outline: none;
-    border-bottom-color: var(--accent);
-  }
-
-  .form-row select {
-    appearance: none;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238a857c' stroke-width='1'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-  }
-
-  .form-row select option {
-    background: var(--bg);
-    color: var(--ink);
-  }
-
-  .form-row textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  .form-submit {
-    margin-top: 24px;
-    padding: 20px 48px;
-    background: var(--ink);
-    color: var(--bg);
-    border: 1px solid var(--ink);
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .form-submit:hover {
-    background: transparent;
-    color: var(--ink);
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 64px 32px 40px;
-    border-top: 1px solid var(--rule);
-    text-align: center;
-  }
-
-  footer .addr {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: var(--ink);
-    margin-bottom: 16px;
-  }
-
-  footer .meta {
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  footer .meta a {
-    color: var(--muted);
-    text-decoration: none;
-    margin: 0 12px;
-    transition: color 0.3s;
-  }
-
-  footer .meta a:hover { color: var(--ink); }
-
-  /* MOBILE */
-  @media (max-width: 768px) {
-    nav { padding: 20px; }
-    nav .logo { font-size: 18px; }
-    .hero { padding: 100px 20px 60px; }
-    section { padding: 80px 20px; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .price-card { padding: 40px 28px; }
-    .steps { grid-template-columns: 1fr; gap: 32px; }
-    .apply-section { padding: 80px 20px; }
-    .split-banner { padding: 80px 20px; }
-    .cta-row { flex-direction: column; align-items: flex-start; gap: 20px; }
-  }
-
-  /* REVEAL */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-  .fade-up.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
+:root{color-scheme:light only;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;background:#fff;}
+body{background:#fff !important;color:#000;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.5;cursor:crosshair;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+img{display:block;}
+nav{position:sticky;top:0;z-index:100;background:#fff;}
+.nav-inner{display:flex;align-items:center;height:48px;padding:0 24px;}
+.nav-logo{font-family:'Archivo',sans-serif;font-size:18px;font-weight:900;letter-spacing:-.01em;}
+.nav-back{margin-left:auto;font-size:10px;text-transform:uppercase;letter-spacing:.15em;transition:opacity .2s;}
+.nav-back:hover{opacity:.4;}
+.hero{padding:60px 24px 60px;max-width:1200px;margin:0 auto;}
+.hero-eyebrow{font-size:11px;letter-spacing:.05em;margin-bottom:24px;}
+.hero h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(52px,12vw,150px);line-height:.86;letter-spacing:-.04em;margin-bottom:28px;}
+.hero-sub{font-size:12px;color:#000;max-width:440px;line-height:1.7;margin-bottom:36px;}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:13px 24px;border:1px solid #000;background:#fff;color:#000;cursor:crosshair;transition:all .15s;}
+.btn:hover{background:#000;color:#fff;}
+.btn-fill{background:#000;color:#fff;}
+.btn-fill:hover{background:#fff;color:#000;}
+section{max-width:1200px;margin:0 auto;padding:80px 24px;}
+.eyebrow{font-size:11px;letter-spacing:.05em;margin-bottom:36px;}
+.sec-title{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(32px,7vw,72px);line-height:.9;letter-spacing:-.03em;margin-bottom:48px;}
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.price-card{border:1px solid #000;padding:40px 32px;}
+.price-tier{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:24px;}
+.price-name{font-family:'Archivo',sans-serif;font-size:42px;font-weight:900;line-height:1;letter-spacing:-.02em;margin-bottom:8px;}
+.price-pieces{font-size:12px;color:#888;margin-bottom:36px;}
+.price-amount{display:flex;align-items:baseline;gap:6px;}
+.price-amount .d{font-size:20px;color:#888;}
+.price-amount .n{font-family:'Archivo',sans-serif;font-size:72px;font-weight:900;line-height:1;letter-spacing:-.03em;}
+.price-cycle{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:32px;}
+.price-includes{list-style:none;border-top:1px solid #e2e2e2;padding-top:24px;}
+.price-includes li{padding:9px 0;font-size:12px;display:flex;align-items:center;gap:12px;}
+.price-includes li::before{content:'—';color:#000;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.step-num{font-family:'Archivo',sans-serif;font-size:14px;font-weight:900;margin-bottom:14px;}
+.step h3{font-family:'Archivo',sans-serif;font-size:22px;font-weight:700;margin-bottom:10px;}
+.step p{font-size:12px;color:#666;line-height:1.6;}
+.split{text-align:center;padding:120px 24px;}
+.split-fig{font-family:'Archivo',sans-serif;font-size:clamp(80px,18vw,220px);font-weight:900;line-height:1;letter-spacing:-.05em;margin-bottom:16px;}
+.split-cap{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#888;}
+.apply{max-width:720px;margin:0 auto;padding:80px 24px 120px;}
+.form-row{margin-bottom:28px;}
+.form-row label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#888;margin-bottom:10px;}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:transparent;border:none;border-bottom:1px solid #000;padding:11px 0;color:#000;font-family:'IBM Plex Mono',monospace;font-size:15px;transition:border-color .2s;}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-bottom:2px solid #000;}
+.form-row select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;}
+.form-row textarea{resize:vertical;min-height:72px;}
+.form-submit{margin-top:18px;padding:16px 40px;background:#000;color:#fff;border:1px solid #000;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.form-submit:hover{background:#fff;color:#000;}
+footer{padding:60px 24px 48px;text-align:center;border-top:1px solid #000;}
+.footer-logo{font-family:'Archivo',sans-serif;font-size:clamp(48px,12vw,110px);font-weight:900;letter-spacing:-.04em;margin-bottom:20px;}
+.footer-addr{font-size:11px;color:#888;margin-bottom:8px;}
+.footer-meta{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#888;}
+.footer-meta a:hover{color:#000;}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+@media(max-width:768px){
+.pricing{grid-template-columns:1fr;}
+.steps{grid-template-columns:1fr 1fr;gap:24px;}
+.hero{padding:32px 18px 48px;}
+section,.apply{padding-left:18px;padding-right:18px;}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
 </style>
 </head>
 <body>
-
 <nav>
-  <div class="logo">STANII</div>
-  <a href="/" class="back">← Back to shop</a>
+<div class="nav-inner">
+<a href="/" class="nav-logo">STANII</a>
+<a href="/" class="nav-back">← Back to shop</a>
+</div>
 </nav>
 
-<section class="hero">
-  <div class="hero-eyebrow">Rack Rental Program</div>
-  <h1>Your closet,<br/><em>our floor.</em></h1>
-  <p class="hero-sub">Rent space inside Dallas's curated resale shop. Set your prices, keep 70%, let us handle the rest. Two-week cycles, no long-term commitment.</p>
-  <div class="cta-row">
-    <a href="#apply" class="btn-primary">Apply Now</a>
-    <a href="#how" class="btn-ghost">How it works</a>
-  </div>
-</section>
+<div class="hero">
+<div class="hero-eyebrow">rack rental program</div>
+<h1>Your closet,<br/>our floor.</h1>
+<p class="hero-sub">Rent space inside the shop. Set your prices, keep 70% of every sale, two-week cycles. Your name stays on your rack.</p>
+<div class="cta-row">
+<a href="#apply" class="btn btn-fill">Apply Now</a>
+<a href="#how" class="btn">How it works</a>
+</div>
+</div>
 
 <section id="pricing">
-  <div class="section-label">Pricing</div>
-  <h2 class="section-title">Two ways in.<br/>Pick your footprint.</h2>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-tier">Tier 01</div>
-      <div class="price-name">Half Rack</div>
-      <div class="price-pieces">— up to 17 pieces</div>
-      <div class="price-amount">
-        <span class="dollar">$</span>
-        <span class="number">100</span>
-      </div>
-      <div class="price-cycle">Per 2-week cycle</div>
-      <ul class="price-includes">
-        <li>Curated placement on the floor</li>
-        <li>SKU tagging & inventory tracking</li>
-        <li>Square POS integration</li>
-        <li>Bi-weekly payouts</li>
-      </ul>
-    </div>
-
-    <div class="price-card">
-      <div class="price-tier">Tier 02</div>
-      <div class="price-name">Full Rack</div>
-      <div class="price-pieces">— up to 35 pieces</div>
-      <div class="price-amount">
-        <span class="dollar">$</span>
-        <span class="number">175</span>
-      </div>
-      <div class="price-cycle">Per 2-week cycle</div>
-      <ul class="price-includes">
-        <li>Premium placement & double the volume</li>
-        <li>SKU tagging & inventory tracking</li>
-        <li>Square POS integration</li>
-        <li>Bi-weekly payouts</li>
-      </ul>
-    </div>
-  </div>
+<div class="eyebrow reveal">Pricing</div>
+<h2 class="sec-title reveal">Two ways in.</h2>
+<div class="pricing">
+<div class="price-card reveal">
+<div class="price-tier">Tier 01</div>
+<div class="price-name">Half Rack</div>
+<div class="price-pieces">up to 17 pieces</div>
+<div class="price-amount"><span class="d">$</span><span class="n">100</span></div>
+<div class="price-cycle">per 2-week cycle</div>
+<ul class="price-includes">
+<li>Curated placement on the floor</li>
+<li>SKU tagging &amp; inventory tracking</li>
+<li>Square POS integration</li>
+<li>Bi-weekly payouts</li>
+</ul>
+</div>
+<div class="price-card reveal">
+<div class="price-tier">Tier 02</div>
+<div class="price-name">Full Rack</div>
+<div class="price-pieces">up to 35 pieces</div>
+<div class="price-amount"><span class="d">$</span><span class="n">175</span></div>
+<div class="price-cycle">per 2-week cycle</div>
+<ul class="price-includes">
+<li>Premium placement, double the volume</li>
+<li>SKU tagging &amp; inventory tracking</li>
+<li>Square POS integration</li>
+<li>Bi-weekly payouts</li>
+</ul>
+</div>
+</div>
 </section>
 
 <section id="how">
-  <div class="section-label">The Process</div>
-  <h2 class="section-title">Four steps.<br/>That's the whole thing.</h2>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">i.</div>
-      <h3>Apply</h3>
-      <p>Submit the form below. We review every application to keep the floor curated.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">ii.</div>
-      <h3>Drop Off</h3>
-      <p>Bring your pieces to 1906 Greenville. We tag, photograph, and shelve.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">iii.</div>
-      <h3>We Sell</h3>
-      <p>Your pieces sit on a curated floor with foot traffic and Instagram visibility.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">iv.</div>
-      <h3>Get Paid</h3>
-      <p>You keep 70% of every sale. Payouts at the end of each 2-week cycle.</p>
-    </div>
-  </div>
+<div class="eyebrow reveal">The process</div>
+<h2 class="sec-title reveal">Four steps.</h2>
+<div class="steps">
+<div class="step reveal"><div class="step-num">01</div><h3>Apply</h3><p>Submit the form below. We review every application to keep the floor curated.</p></div>
+<div class="step reveal"><div class="step-num">02</div><h3>Drop Off</h3><p>Bring your pieces to 1906 Greenville. We tag, photograph, and shelve.</p></div>
+<div class="step reveal"><div class="step-num">03</div><h3>We Sell</h3><p>Your pieces sit on a curated floor with foot traffic and Instagram visibility.</p></div>
+<div class="step reveal"><div class="step-num">04</div><h3>Get Paid</h3><p>You keep 70% of every sale. Payouts at the end of each 2-week cycle.</p></div>
+</div>
 </section>
 
-<div class="split-banner">
-  <div class="split-figure">70<em>/</em>30</div>
-  <div class="split-caption">You keep 70 — STANII keeps 30</div>
+<div class="split reveal">
+<div class="split-fig">70/30</div>
+<div class="split-cap">You keep 70 — STANII keeps 30</div>
 </div>
 
-<section class="apply-section" id="apply">
-  <div class="apply-inner">
-    <div class="section-label">Apply</div>
-    <h2 class="section-title">Let's see what you've got.</h2>
-
-    <form action="https://formspree.io/f/xkokjbkq" method="POST">
-      <div class="form-row">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required />
-      </div>
-      <div class="form-row">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-      <div class="form-row">
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" required />
-      </div>
-      <div class="form-row">
-        <label for="instagram">Instagram Handle</label>
-        <input type="text" id="instagram" name="instagram" placeholder="@" />
-      </div>
-      <div class="form-row">
-        <label for="rack">Rack Size</label>
-        <select id="rack" name="rack" required>
-          <option value="">Select...</option>
-          <option value="half">Half Rack — $100 / 2 weeks (17 pieces)</option>
-          <option value="full">Full Rack — $175 / 2 weeks (35 pieces)</option>
-          <option value="undecided">Not sure yet</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label for="brands">Brands You Plan to Sell</label>
-        <textarea id="brands" name="brands" placeholder="Tell us a few brands or pieces you're thinking of bringing..."></textarea>
-      </div>
-      <button type="submit" class="form-submit">Submit Application</button>
-    </form>
-  </div>
-</section>
+<div class="apply" id="apply">
+<div class="eyebrow reveal">Apply</div>
+<h2 class="sec-title reveal">Let's see what you've got.</h2>
+<form action="https://formspree.io/f/xkokjbkq" method="POST">
+<div class="form-row"><label for="name">Full Name</label><input type="text" id="name" name="name" required/></div>
+<div class="form-row"><label for="email">Email</label><input type="email" id="email" name="email" required/></div>
+<div class="form-row"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" required/></div>
+<div class="form-row"><label for="instagram">Instagram Handle</label><input type="text" id="instagram" name="instagram" placeholder="@"/></div>
+<div class="form-row"><label for="rack">Rack Size</label>
+<select id="rack" name="rack" required>
+<option value="">Select...</option>
+<option value="half">Half Rack — $100 / 2 weeks (17 pieces)</option>
+<option value="full">Full Rack — $175 / 2 weeks (35 pieces)</option>
+<option value="undecided">Not sure yet</option>
+</select>
+</div>
+<div class="form-row"><label for="brands">Brands You Plan to Sell</label><textarea id="brands" name="brands" placeholder="Tell us a few brands or pieces you're thinking of bringing..."></textarea></div>
+<button type="submit" class="form-submit">Submit Application</button>
+</form>
+</div>
 
 <footer>
-  <div class="addr">1906 Greenville Ave, Dallas, TX 75206</div>
-  <div class="meta">
-    <a href="https://instagram.com/staniidallas" target="_blank">@staniidallas</a>
-    ·
-    <a href="/">Shop</a>
-  </div>
+<div class="footer-logo">STANII</div>
+<div class="footer-addr">1906 Greenville Ave, Dallas, TX 75206</div>
+<div class="footer-meta"><a href="https://instagram.com/staniidallas" target="_blank">@staniidallas</a> · <a href="/">Shop</a></div>
 </footer>
 
 <script>
-  const els = document.querySelectorAll('section, .split-banner');
-  els.forEach(el => el.classList.add('fade-up'));
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  els.forEach(el => io.observe(el));
-  document.querySelector('.hero')?.classList.add('in');
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
-
 </body>
 </html>
