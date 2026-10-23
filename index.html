@@ -215,6 +215,8 @@ footer{padding:80px 24px 48px;}
 
 <form class="sell-form reveal" id="sell-form" action="https://formspree.io/f/xdayzqgk" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="_subject" value="New closet submission — staniidallas.com"/>
+<input type="hidden" name="_next" value="https://staniidallas.com/?sent=1#sell"/>
+<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
 <div class="field"><input type="text" name="name" placeholder="Name" required/></div>
 <div class="field"><input type="tel" name="phone" placeholder="Phone (we text to book)" required/></div>
 <div class="field"><input type="email" name="email" placeholder="Email" required/></div>
@@ -307,7 +309,8 @@ popupForm?.addEventListener('submit',async e=>{e.preventDefault();const fd=new F
 const sellForm=document.getElementById('sell-form'),sellBtn=document.getElementById('sell-submit'),sellThanks=document.getElementById('sell-thanks');
 const sellFiles=document.getElementById('sell-files'),fileHint=document.getElementById('file-hint');
 sellFiles?.addEventListener('change',()=>{let t=0;for(const f of sellFiles.files)t+=f.size;const mb=t/1048576;if(mb>25){fileHint.textContent='That\'s '+mb.toFixed(0)+' MB — keep it under 25 MB total, or drop a longer video.';fileHint.style.color='#c00';}else{fileHint.textContent=sellFiles.files.length?sellFiles.files.length+' file'+(sellFiles.files.length>1?'s':'')+' · '+mb.toFixed(1)+' MB':'Up to 25 MB total.';fileHint.style.color='#888';}});
-sellForm?.addEventListener('submit',async e=>{e.preventDefault();let t=0;for(const f of (sellFiles?.files||[]))t+=f.size;if(t>25*1048576){fileHint.scrollIntoView({block:'center'});return;}sellBtn.disabled=true;sellBtn.textContent='Sending...';try{const r=await fetch(sellForm.action,{method:'POST',body:new FormData(sellForm),headers:{'Accept':'application/json'}});if(!r.ok)throw 0;sellForm.style.display='none';sellThanks.style.display='block';}catch(_){sellBtn.disabled=false;sellBtn.textContent='Something went wrong, try again';}});
+sellForm?.addEventListener('submit',e=>{let t=0;for(const f of (sellFiles?.files||[]))t+=f.size;if(t>25*1048576){e.preventDefault();fileHint.scrollIntoView({block:'center'});return;}sellBtn.disabled=true;sellBtn.textContent='Sending...';});
+if(location.search.includes('sent=1')&&sellForm){sellForm.style.display='none';sellThanks.style.display='block';setTimeout(()=>document.getElementById('sell')?.scrollIntoView(),600);}
 </script>
 </body>
 </html>
