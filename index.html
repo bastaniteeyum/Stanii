@@ -190,7 +190,7 @@ footer{padding:80px 24px 48px;}
 <div class="drop-list" id="drop-list"></div>
 <div class="drops-actions reveal">
 <a href="#visit" class="btn btn-fill">Shop in store</a>
-<a href="https://stanii-2.myshopify.com" target="_blank" class="btn" id="shop-online">Shop online</a>
+<a href="https://shop.staniidallas.com" target="_blank" class="btn" id="shop-online">Shop online</a>
 </div>
 </div>
 
@@ -286,10 +286,10 @@ const iv=setInterval(()=>{pct+=Math.random()*16+5;if(pct>=100){pct=100;clearInte
    link  = optional URL (Shopify product page), leave "" for none
 */
 const DROPS=[
-{name:"Y2K Fossil blouse, S",price:32,where:"In store / Online",img:"",link:"https://stanii-2.myshopify.com/products/y2k-fossil-blouse-s"},
-{name:"Miss Me jeans, 28",price:38,where:"In store / Online",img:"",link:"https://stanii-2.myshopify.com/products/miss-me-jeans-28"},
-{name:"Brown scarf",price:12,where:"In store / Online",img:"",link:"https://stanii-2.myshopify.com/products/brown-scarf"},
-{name:"Vintage Forever 21 top, S",price:18,where:"In store / Online",img:"",link:"https://stanii-2.myshopify.com/products/vintage-forever-21-top-s"},
+{name:"Y2K Fossil blouse, S",price:32,where:"In store / Online",img:"",link:"https://shop.staniidallas.com/products/y2k-fossil-blouse-s"},
+{name:"Miss Me jeans, 28",price:38,where:"In store / Online",img:"",link:"https://shop.staniidallas.com/products/miss-me-jeans-28"},
+{name:"Brown scarf",price:12,where:"In store / Online",img:"",link:"https://shop.staniidallas.com/products/brown-scarf"},
+{name:"Vintage Forever 21 top, S",price:18,where:"In store / Online",img:"",link:"https://shop.staniidallas.com/products/vintage-forever-21-top-s"},
 ];
 const dl=document.getElementById('drop-list');
 dl.innerHTML=DROPS.map(d=>`<${d.link?'a href="'+d.link+'" target="_blank"':'div'} class="drop reveal">${d.img?`<img src="${d.img}" alt="${d.name}" loading="lazy"/>`:''}<div class="n">${d.name}</div><div class="m">$${d.price}<span>${d.where}</span></div></${d.link?'a':'div'}>`).join('');
